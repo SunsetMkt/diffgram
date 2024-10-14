@@ -324,7 +324,7 @@ class Event(Base):
             session.flush()
         Event.track_user(event, email)
         logger.debug(f'Created event {event.id}:{event.kind}')
-        event.send_to_eventhub()
+        #event.send_to_eventhub()
         event.broadcast()
         return event
 
@@ -342,6 +342,10 @@ class Event(Base):
 
         if settings.DIFFGRAM_SYSTEM_MODE in ['sandbox'] and self.kind in EXCLUDED_EVENTHUB_TRACKING_EVENTS:
             return
+        
+        if settings.ALLOW_EVENTHUB is False:
+            return
+        
         try:
             event_data = self.serialize()
             event_data['event_type'] = 'user'

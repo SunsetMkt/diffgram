@@ -11,7 +11,7 @@ on:
     branches:
       - '**'
   pull_request:
-    types: [ready_for_review]
+    types: [opened, synchronize, ready_for_review]
 jobs:
   Default-Service-Unit-Tests:
     runs-on: ubuntu-20.04
@@ -175,7 +175,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: "18"
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
@@ -200,6 +200,6 @@ jobs:
       - run: cd frontend
       - uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: "18"
       - run: yarn --cwd frontend install
       - run: yarn --cwd frontend run test:unit
